@@ -1,0 +1,1 @@
+const r=require('express').Router(),c=require('../controllers/attendanceController'),{protect,teacher}=require('../middleware/authMiddleware');r.get('/',protect,teacher,c.getAttendance);r.post('/',protect,teacher,c.saveAttendance);r.get('/student/:userId',protect,c.getStudentAttendance);module.exports=r;

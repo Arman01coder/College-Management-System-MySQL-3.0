@@ -1,0 +1,5 @@
+{
+  "name": "Copy of College Management System",
+  "description": "A comprehensive College Management App built with React and Tailwind CSS. It features modules for managing students, teachers, courses, and attendance, with role-based access for Admins, Teachers, and Students.",
+  "requestFramePermissions": []
+}
