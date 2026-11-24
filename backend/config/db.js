@@ -11,6 +11,9 @@ const pool = mysql.createPool({
   connectionLimit: 10,
 });
 
+ssl: process.env.DB_HOST && process.env.DB_HOST !== 'localhost'
+    ? { minVersion: 'TLSv1.2', rejectUnauthorized: true }
+    : undefined,
 async function initializeDatabase() {
   const c = await pool.getConnection();
   try {
