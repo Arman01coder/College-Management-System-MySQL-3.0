@@ -1,17 +1,13 @@
 import React from 'react';
 import {
-  SunIcon,
-  MoonIcon,
   HomeIcon,
   ArrowRightOnRectangleIcon,
 } from '@heroicons/react/24/outline';
 import { useAuth } from '../../hooks/useAuth';
-import { useTheme } from '../../hooks/useTheme';
 import { useNavigate } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const { user, logout } = useAuth();
-  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   // Navigate directly to the main dashboard
@@ -21,11 +17,11 @@ const Header: React.FC = () => {
 
   // Sign out and return to the login page
   const handleLoginPage = () => {
-  if (window.confirm('Are you sure you want to log out of your account?')) {
-    logout();
-    navigate('/login');
-  }
-};
+    if (window.confirm('Are you sure you want to log out of your account?')) {
+      logout();
+      navigate('/login');
+    }
+  };
 
   return (
     <header className="bg-white dark:bg-gray-800 shadow-md px-4 py-3 flex flex-wrap justify-between items-center gap-3">
@@ -60,15 +56,6 @@ const Header: React.FC = () => {
           <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">{user?.name}</p>
           <p className="text-xs text-gray-500 dark:text-gray-400">{user?.role}</p>
         </div>
-
-        <button
-          type="button"
-          onClick={toggleTheme}
-          className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-          title="Toggle Theme"
-        >
-          {theme === 'light' ? <MoonIcon className="h-5 w-5" /> : <SunIcon className="h-5 w-5" />}
-        </button>
       </div>
     </header>
   );
