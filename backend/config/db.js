@@ -9,11 +9,11 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME || 'college_management',
   waitForConnections: true,
   connectionLimit: 10,
-});
-
-ssl: process.env.DB_HOST && process.env.DB_HOST !== 'localhost'
+  ssl: process.env.DB_HOST && process.env.DB_HOST !== 'localhost'
     ? { minVersion: 'TLSv1.2', rejectUnauthorized: true }
     : undefined,
+});
+
 async function initializeDatabase() {
   const c = await pool.getConnection();
   try {
@@ -39,12 +39,9 @@ async function initializeDatabase() {
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )`);
 
-    // Ensure semester column exists if table was created earlier
     try {
       await c.query(`ALTER TABLE students ADD COLUMN semester VARCHAR(40) DEFAULT 'Sem 1'`);
-    } catch (_) {
-      // Column already exists
-    }
+    } catch (_) {}
 
     await c.query(`CREATE TABLE IF NOT EXISTS teachers (
       id INT AUTO_INCREMENT PRIMARY KEY,
@@ -74,23 +71,10 @@ async function initializeDatabase() {
       status ENUM('Present','Absent','Late') NOT NULL DEFAULT 'Present'
     )`);
 
-    
-    try {
-      await c.query(`ALTER TABLE students ADD COLUMN total_fee DECIMAL(10,2) DEFAULT 0`);
-    } catch (_) {}
-    try {
-      await c.query(`ALTER TABLE students ADD COLUMN paid_fee DECIMAL(10,2) DEFAULT 0`);
-    } catch (_) {}
-
-    
-    try {
-      await c.query(`ALTER TABLE attendance ADD COLUMN present BOOLEAN NOT NULL DEFAULT TRUE`);
-    } catch (_) {}
-    try {
-      await c.query(`ALTER TABLE attendance ADD UNIQUE KEY uniq_attendance (student_id, course_id, date)`);
-    } catch (_) {}
-
-    
+    try { await c.query(`ALTER TABLE students ADD COLUMN total_fee DECIMAL(10,2) DEFAULT 0`); } catch (_) {}
+    try { await c.query(`ALTER TABLE students ADD COLUMN paid_fee DECIMAL(10,2) DEFAULT 0`); } catch (_) {}
+    try { await c.query(`ALTER TABLE attendance ADD COLUMN present BOOLEAN NOT NULL DEFAULT TRUE`); } catch (_) {}
+    try { await c.query(`ALTER TABLE attendance ADD UNIQUE KEY uniq_attendance (student_id, course_id, date)`); } catch (_) {}
     try { await c.query(`ALTER TABLE students MODIFY COLUMN user_id INT NULL`); } catch (_) {}
     try { await c.query(`ALTER TABLE students ADD COLUMN father_name VARCHAR(150) DEFAULT ''`); } catch (_) {}
     try { await c.query(`ALTER TABLE students ADD COLUMN mother_name VARCHAR(150) DEFAULT ''`); } catch (_) {}
