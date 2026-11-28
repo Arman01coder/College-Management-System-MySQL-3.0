@@ -7,20 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-let dbReadyPromise = null;
-app.use(async (req, res, next) => {
-  try {
-    if (!dbReadyPromise) {
-      dbReadyPromise = initializeDatabase();
-    }
-    await dbReadyPromise;
-    next();
-  } catch (e) {
-    dbReadyPromise = null;
-    next(e);
-  }
-});
-
 app.get('/api/health', (req, res) => res.json({ status: 'ok', database: 'MySQL' }));
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/students', require('./routes/studentRoutes'));
