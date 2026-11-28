@@ -15,7 +15,7 @@ interface StudentFee {
   paid_fee?: number;
 }
 
-const API_URL = 'http://localhost:5000/api/students';
+const API_URL = (window.location.hostname === 'localhost' ? 'http://localhost:5000/api/students' : '/api/students');
 
 const FeesPage: React.FC = () => {
   const { user, token } = useAuth();

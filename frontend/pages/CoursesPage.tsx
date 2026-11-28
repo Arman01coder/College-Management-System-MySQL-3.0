@@ -4,7 +4,7 @@ import { useAuth } from '../hooks/useAuth';
 import { ROLES } from '../constants';
 import { Course } from '../types';
 
-const API_URL = 'http://localhost:5000/api/courses';
+const API_URL = (window.location.hostname === 'localhost' ? 'http://localhost:5000/api/courses' : '/api/courses');
 
 const CoursesPage: React.FC = () => {
   const { user, token } = useAuth();

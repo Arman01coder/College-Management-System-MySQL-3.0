@@ -560,7 +560,7 @@ const LampLoginPage: React.FC<LampLoginPageProps> = ({
           setLoading(false);
           return;
         }
-        const res = await fetch('http://localhost:5000/api/auth/reset-password', {
+        const res = await fetch((window.location.hostname === 'localhost' ? 'http://localhost:5000/api/auth/reset-password' : '/api/auth/reset-password'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ fullName, identifier: username, newPassword }),

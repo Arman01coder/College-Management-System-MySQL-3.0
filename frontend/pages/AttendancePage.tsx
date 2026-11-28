@@ -30,7 +30,7 @@ interface AttendanceRecord {
   courseCode?: string;
 }
 
-const API = 'http://localhost:5000/api';
+const API = (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
 
 // Convert ISO UTC timestamps (e.g. 2026-11-13T18:30:00.000Z) to local YYYY-MM-DD
 const toLocalYMD = (raw: string): string => {

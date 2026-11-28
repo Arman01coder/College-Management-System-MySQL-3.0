@@ -3,7 +3,7 @@ import { PencilIcon, TrashIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../hooks/useAuth';
 import { Teacher } from '../types';
 
-const API_URL = 'http://localhost:5000/api/teachers';
+const API_URL = (window.location.hostname === 'localhost' ? 'http://localhost:5000/api/teachers' : '/api/teachers');
 
 const TeachersPage: React.FC = () => {
   const { token } = useAuth();

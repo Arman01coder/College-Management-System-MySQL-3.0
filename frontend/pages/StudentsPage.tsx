@@ -17,7 +17,7 @@ interface StudentRecord {
   contact?: string;
 }
 
-const API_URL = 'http://localhost:5000/api/students';
+const API_URL = (window.location.hostname === 'localhost' ? 'http://localhost:5000/api/students' : '/api/students');
 
 const DEPARTMENT_SEMESTERS: Record<string, number> = {
   BCA: 6,

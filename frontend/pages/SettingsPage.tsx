@@ -3,7 +3,7 @@ import { Cog6ToothIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../hooks/useAuth';
 import { ROLES } from '../constants';
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
 
 const SettingsPage: React.FC = () => {
   const { user, token } = useAuth();
